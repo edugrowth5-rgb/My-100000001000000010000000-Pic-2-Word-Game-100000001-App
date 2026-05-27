@@ -1,32 +1,10 @@
-const gameLevels = [
-    {
-        level: 1,
-        images: ["https://img.icons8.com/emoji/96/sun-emoji.png", "https://img.icons8.com/emoji/96/sunflower-emoji.png"], 
-        answer: "SUNFLOWER",
-        hint: "A large bright yellow flower facing the sun."
-    },
-    {
-        level: 2,
-        images: ["https://img.icons8.com/emoji/96/cloud-with-rain-emoji.png", "https://img.icons8.com/emoji/96/bow-and-arrow-emoji.png"],
-        answer: "RAINBOW",
-        hint: "Seven beautiful colors seen in the sky after rain."
-    },
-    {
-        level: 3,
-        images: ["https://img.icons8.com/emoji/96/honey-pot.png", "https://img.icons8.com/emoji/96/honeybee-emoji.png"],
-        answer: "HONEYBEE",
-        hint: "A small flying insect that makes sweet honey."
-    }
-];
-
 let currentLevelIndex = 0;
 let score = 0;
 let currentAnswer = [];
 let selectedLetterIndexes = []; 
 
 // DOM Selectors
-const img1 = document.getElementById('img1');
-const img2 = document.getElementById('img2');
+const emojiGrid = document.getElementById('emoji-grid');
 const scoreVal = document.getElementById('score-val');
 const levelVal = document.getElementById('level-val');
 const hintBtn = document.getElementById('hint-btn');
@@ -35,16 +13,14 @@ const answerSlots = document.getElementById('answer-slots');
 const keyboard = document.getElementById('keyboard');
 const clearBtn = document.getElementById('clear-btn');
 const installBtn = document.getElementById('install-btn');
-
-// New Buttons Selectors
 const prevBtn = document.getElementById('prev-btn');
 const nextSkipBtn = document.getElementById('next-skip-btn');
 const fullscreenBtn = document.getElementById('fullscreen-btn');
 const appContainerId = document.getElementById('app-container-id');
 
 function initGame() {
-    const savedLevel = localStorage.getItem('p2w_level');
-    const savedScore = localStorage.getItem('p2w_score');
+    const savedLevel = localStorage.getItem('wg_p2w_level');
+    const savedScore = localStorage.getItem('wg_p2w_score');
     
     if(savedLevel) currentLevelIndex = parseInt(savedLevel);
     if(savedScore) score = parseInt(savedScore);
@@ -53,10 +29,16 @@ function initGame() {
 }
 
 function loadLevel() {
-    // Check boundaries
+    if (typeof gameLevels === 'undefined' || gameLevels.length === 0) {
+        emojiGrid.innerHTML = "<p>Data file error!</p>";
+        return;
+    }
+
     if (currentLevelIndex >= gameLevels.length) {
-        alert("🎉 Spectacular! You have completed all available levels!");
-        currentLevelIndex = gameLevels.length - 1; // Keep on last level
+        alert("🎉 Marvelous! You completed all 200+ Levels of Success Zone Game!");
+        currentLevelIndex = 0; 
+        score = 0;
+        saveProgress();
     }
     if (currentLevelIndex < 0) currentLevelIndex = 0;
 
@@ -65,8 +47,8 @@ function loadLevel() {
     scoreVal.innerText = score;
     levelVal.innerText = currentLevel.level;
     
-    img1.src = currentLevel.images[0];
-    img2.src = currentLevel.images[1];
+    // Render Emojis Dynamic Box Grid
+    renderEmojis(currentLevel.emojis);
     
     hintText.innerText = currentLevel.hint;
     hintText.classList.add('hide');
@@ -77,6 +59,24 @@ function loadLevel() {
     generateAnswerSlots(currentLevel.answer.length);
     generateKeyboard(currentLevel.answer);
     updateNavigationButtons();
+}
+
+function renderEmojis(emojiArray) {
+    emojiGrid.innerHTML = "";
+    emojiArray.forEach((emoji, index) => {
+        const box = document.createElement('div');
+        box.classList.add('emoji-box');
+        box.innerText = emoji;
+        emojiGrid.appendChild(box);
+        
+        // Agar aakhri emoji nahi hai toh beech me '+' add karein
+        if (index < emojiArray.length - 1) {
+            const plus = document.createElement('div');
+            plus.classList.add('plus-sign');
+            plus.innerText = "+";
+            emojiGrid.appendChild(plus);
+        }
+    });
 }
 
 function generateAnswerSlots(length) {
@@ -92,7 +92,7 @@ function generateAnswerSlots(length) {
 
 function generateKeyboard(correctAnswer) {
     keyboard.innerHTML = "";
-    let letterPool = correctAnswer.split("");
+    let letterPool = correctAnswer.toUpperCase().split("");
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     while(letterPool.length < 12) {
@@ -130,9 +130,9 @@ function handleLetterClick(letter, kbIndex) {
 function removeLetter(slotIndex) {
     if(currentAnswer[slotIndex] !== "") {
         const kbIndex = selectedLetterIndexes[slotIndex];
-        if(document.querySelector(`.bubble-letter[data-kb-index='${kbIndex}']`)){
-            document.querySelector(`.bubble-letter[data-kb-index='${kbIndex}']`).classList.remove('disabled');
-        }
+        const kbElement = document.querySelector(`.bubble-letter[data-kb-index='${kbIndex}']`);
+        if(kbElement) kbElement.classList.remove('disabled');
+        
         currentAnswer[slotIndex] = "";
         document.querySelector(`.letter-slot[data-index='${slotIndex}']`).innerText = "";
     }
@@ -140,11 +140,11 @@ function removeLetter(slotIndex) {
 
 function checkAnswer() {
     const finalGuess = currentAnswer.join("");
-    const realAnswer = gameLevels[currentLevelIndex].answer;
+    const realAnswer = gameLevels[currentLevelIndex].answer.toUpperCase();
     
     if(finalGuess === realAnswer) {
         setTimeout(() => {
-            alert("🌟 Splendid! Correct Answer!");
+            alert("🌟 Fantastic! Correct Answer!");
             score += 10;
             currentLevelIndex++;
             saveProgress();
@@ -152,7 +152,7 @@ function checkAnswer() {
         }, 250);
     } else {
         setTimeout(() => {
-            alert("❌ Try again! Put on your thinking cap.");
+            alert("❌ Oops! Wrong guess. Use the hint or try again.");
             clearCurrentAnswer();
         }, 250);
     }
@@ -163,12 +163,11 @@ function clearCurrentAnswer() {
 }
 
 function saveProgress() {
-    localStorage.setItem('p2w_level', currentLevelIndex);
-    localStorage.setItem('p2w_score', score);
+    localStorage.setItem('wg_p2w_level', currentLevelIndex);
+    localStorage.setItem('wg_p2w_score', score);
 }
 
 function updateNavigationButtons() {
-    // Level 1 par Back button ko disable ya transparent kar sakte hain
     if(currentLevelIndex === 0) {
         prevBtn.style.opacity = "0.5";
         prevBtn.style.pointerEvents = "none";
@@ -178,7 +177,7 @@ function updateNavigationButtons() {
     }
 }
 
-// Navigation Events
+// Event Bindings
 prevBtn.addEventListener('click', () => {
     if(currentLevelIndex > 0) {
         currentLevelIndex--;
@@ -193,15 +192,14 @@ nextSkipBtn.addEventListener('click', () => {
         saveProgress();
         loadLevel();
     } else {
-        alert("This is the last available level!");
+        alert("You are on the latest level!");
     }
 });
 
-// Fullscreen API Implementation
 fullscreenBtn.addEventListener('click', () => {
     if (!document.fullscreenElement) {
         appContainerId.requestFullscreen().catch(err => {
-            alert(`Error enabling fullscreen: ${err.message}`);
+            alert(`Fullscreen error: ${err.message}`);
         });
         fullscreenBtn.innerText = "❌ Exit Full";
     } else {
@@ -210,7 +208,6 @@ fullscreenBtn.addEventListener('click', () => {
     }
 });
 
-// Sync UI if user exits fullscreen via system back gesture/button
 document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement) {
         fullscreenBtn.innerText = "📺 Fullscreen";
@@ -220,7 +217,7 @@ document.addEventListener('fullscreenchange', () => {
 hintBtn.addEventListener('click', () => hintText.classList.toggle('hide'));
 clearBtn.addEventListener('click', clearCurrentAnswer);
 
-// PWA Installer
+// PWA Installer Trigger
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
