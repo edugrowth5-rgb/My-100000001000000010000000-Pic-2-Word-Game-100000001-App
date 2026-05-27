@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pic-To-Word: Mind Power Game</title>
+    <link rel="stylesheet" href="WGstyle.css">
+    <link rel="manifest" href="WGmanifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container" id="app-container-id">
+        <!-- Header Section -->
+        <header>
+            <div class="top-bar">
+                <button id="prev-btn" class="nav-btn" title="Previous Level">⬅️ Back</button>
+                <button id="fullscreen-btn" class="nav-btn" title="Toggle Fullscreen">📺 Fullscreen</button>
+                <button id="next-skip-btn" class="nav-btn" title="Next Level">Next ➡️</button>
+            </div>
+            
+            <div class="score-board">
+                <span>⭐ Score: <strong id="score-val">0</strong></span>
+                <span>🏆 Level: <strong id="level-val">1</strong></span>
+            </div>
+            <h1>Pic-2-Word</h1>
+            <p class="tagline">Boost Your Mind Power!</p>
+        </header>
+
+        <!-- Main Game Board -->
+        <main class="game-board">
+            <!-- Images Grid -->
+            <div class="image-container" id="image-grid">
+                <div class="img-box"><img id="img1" src="" alt="Pic 1"></div>
+                <div class="plus-sign">+</div>
+                <div class="img-box"><img id="img2" src="" alt="Pic 2"></div>
+            </div>
+
+            <!-- Hint Section -->
+            <div class="hint-section">
+                <button id="hint-btn" class="btn-hint">💡 Need a Hint?</button>
+                <p id="hint-text" class="hint-text hide"></p>
+            </div>
+
+            <!-- Answer Slots -->
+            <div class="answer-container" id="answer-slots"></div>
+
+            <!-- Scrambled Letters (Keyboard) -->
+            <div class="letters-container" id="keyboard"></div>
+        </main>
+
+        <!-- Footer / Action Buttons -->
+        <footer>
+            <button id="clear-btn" class="btn-secondary">Clear</button>
+            <button id="install-btn" class="btn-install hide">📲 Install App</button>
+        </footer>
+    </div>
+
+    <script src="WGapp.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('WGsw.js')
+                    .then(reg => console.log('Service Worker Registered!'))
+                    .catch(err => console.log('Registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>
