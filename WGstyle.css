@@ -1,4 +1,3 @@
-/* Color Palette definition for a modern, playful look */
 :root {
     --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
     --primary-color: #38bdf8;
@@ -26,7 +25,6 @@ body {
     padding: 10px;
 }
 
-/* App Container: Auto adjusts for mobile and desktop screens */
 .app-container {
     background: #f0f9ff;
     width: 100%;
@@ -42,7 +40,6 @@ body {
     position: relative;
 }
 
-/* Header UI */
 header {
     background: var(--primary-color);
     padding: 15px;
@@ -50,10 +47,8 @@ header {
     color: white;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* Purane style ke sath ise add karein */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -70,15 +65,6 @@ header {
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
-}
-
-.nav-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.nav-btn:active {
-    transform: scale(0.95);
 }
 
 .score-board {
@@ -95,18 +81,9 @@ header {
     font-weight: 600;
 }
 
-header h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-}
+header h1 { font-size: 1.8rem; font-weight: 800; }
+.tagline { font-size: 0.8rem; opacity: 0.9; }
 
-.tagline {
-    font-size: 0.8rem;
-    opacity: 0.9;
-}
-
-/* Main Board Content */
 .game-board {
     flex: 1;
     padding: 20px;
@@ -116,167 +93,107 @@ header h1 {
     overflow-y: auto;
 }
 
-/* 3D Box Style for Images */
+/* Emoji Boxes Grid Container */
 .image-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 15px;
 }
 
-.img-box {
+/* Emoji Box - Scaled down dynamically for 3-4 blocks */
+.emoji-box {
     background: var(--card-bg);
-    width: 110px;
-    height: 110px;
-    border-radius: 20px;
+    min-width: 65px;
+    min-height: 65px;
+    max-width: 90px;
+    max-height: 90px;
+    flex: 1;
+    aspect-ratio: 1;
+    border-radius: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 8px 0px #cbd5e1, 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 0px #cbd5e1, 0 8px 15px rgba(0,0,0,0.1);
     border: 2px solid #f1f5f9;
-    padding: 10px;
-}
-
-.img-box img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    font-size: 2.2rem; /* Direct emoji size rendering */
+    user-select: none;
 }
 
 .plus-sign {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: #64748b;
 }
 
-/* Hint Component */
-.hint-section {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
+.hint-section { text-align: center; margin-bottom: 10px; }
 .btn-hint {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    padding: 6px 15px;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: #64748b;
+    background: #f8fafc; border: 2px solid #e2e8f0;
+    padding: 6px 15px; border-radius: 15px;
+    font-size: 0.85rem; cursor: pointer; font-weight: 600; color: #64748b;
 }
+.hint-text { font-size: 0.85rem; font-style: italic; color: #475569; margin-top: 5px; }
 
-.hint-text {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: #475569;
-    margin-top: 5px;
-}
-
-/* Answer Slots Styles */
 .answer-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 20px;
-    min-height: 45px;
+    gap: 6px;
+    margin-bottom: 15px;
+    min-height: 40px;
 }
 
 .letter-slot {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     border-bottom: 3px solid var(--accent-purple);
     background: #f8fafc;
-    border-radius: 8px;
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 800;
     color: var(--accent-purple);
     text-transform: uppercase;
     cursor: pointer;
 }
 
-/* Keyboard Bubble Buttons */
 .letters-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
 .bubble-letter {
-    background: var(--accent-orange);
-    color: white;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 0px #c2410c;
-    transition: transform 0.1s;
-    user-select: none;
+    background: var(--accent-orange); color: white;
+    height: 42px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.1rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 4px 0px #c2410c; transition: transform 0.1s;
 }
-
-.bubble-letter:active {
-    transform: translateY(4px);
-    box-shadow: none;
-}
-
-/* Alternating Keyboard Colors for Dynamic Look */
+.bubble-letter:active { transform: translateY(4px); box-shadow: none; }
 .letters-container .bubble-letter:nth-child(2n) { background: var(--accent-purple); box-shadow: 0 4px 0px #7c3aed; }
 .letters-container .bubble-letter:nth-child(3n) { background: #38bdf8; box-shadow: 0 4px 0px #0369a1; }
+.bubble-letter.disabled { visibility: hidden; }
 
-.bubble-letter.disabled {
-    visibility: hidden;
-}
-
-/* Bottom Bar Utilities */
-footer {
-    padding: 15px;
-    display: flex;
-    gap: 10px;
-    background: #e0f2fe;
-}
-
+footer { padding: 15px; display: flex; gap: 10px; background: #e0f2fe; }
 button.btn-secondary {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 15px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    color: white;
-    background: #94a3b8;
-    box-shadow: 0 4px 0px #64748b;
+    flex: 1; padding: 12px; border: none; border-radius: 15px;
+    font-size: 1rem; font-weight: 700; cursor: pointer; color: white;
+    background: #94a3b8; box-shadow: 0 4px 0px #64748b;
 }
-
 .btn-install {
-    background: var(--text-main);
-    color: white;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 0px #0f172a;
-    margin: 0 auto 10px auto;
-    display: block;
+    background: var(--text-main); color: white; padding: 8px 18px;
+    border: none; border-radius: 20px; font-size: 0.85rem; font-weight: bold;
+    cursor: pointer; box-shadow: 0 4px 0px #0f172a; margin: 0 auto 10px auto; display: block;
 }
-
 .hide { display: none !important; }
 
-/* Dynamic sizing for smaller viewport compatibility */
 @media (max-height: 650px) {
-    .img-box { width: 85px; height: 85px; }
-    .bubble-letter { height: 38px; font-size: 1rem; }
-    header h1 { font-size: 1.4rem; }
+    .emoji-box { min-width: 50px; min-height: 50px; font-size: 1.6rem; }
+    .bubble-letter { height: 35px; font-size: 0.95rem; }
 }
