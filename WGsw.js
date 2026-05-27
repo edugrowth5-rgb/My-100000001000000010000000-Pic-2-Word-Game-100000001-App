@@ -1,6 +1,6 @@
 const CACHE_NAME = 'pic2word-v1';
 const ASSETS = [
-    'WGindex.html',
+    'index.html',
     'WGstyle.css',
     'WGapp.js',
     'WGmanifest.json',
