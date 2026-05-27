@@ -64,7 +64,4 @@ const gameLevels = [
         answer: "FIREFIGHTER",
         hint: "A brave person who puts out dangerous fires."
     }
-    
-    // NOTE: Aap is array ke andar isi tarah aur elements insert karke 
-    // total 200 words aaram se poora kar sakte hain!
 ];
