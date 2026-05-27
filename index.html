@@ -14,26 +14,24 @@
         <!-- Header Section -->
         <header>
             <div class="top-bar">
-                <button id="prev-btn" class="nav-btn" title="Previous Level">⬅️ Back</button>
-                <button id="fullscreen-btn" class="nav-btn" title="Toggle Fullscreen">📺 Fullscreen</button>
-                <button id="next-skip-btn" class="nav-btn" title="Next Level">Next ➡️</button>
+                <button id="prev-btn" class="nav-btn">⬅️ Back</button>
+                <button id="fullscreen-btn" class="nav-btn">📺 Fullscreen</button>
+                <button id="next-skip-btn" class="nav-btn">Next ➡️</button>
             </div>
             
             <div class="score-board">
                 <span>⭐ Score: <strong id="score-val">0</strong></span>
                 <span>🏆 Level: <strong id="level-val">1</strong></span>
             </div>
-            <h1>Pic-2-Word</h1>
+            <h1 id="app-title">Pic-2-Word</h1>
             <p class="tagline">Boost Your Mind Power!</p>
         </header>
 
         <!-- Main Game Board -->
         <main class="game-board">
-            <!-- Images Grid -->
-            <div class="image-container" id="image-grid">
-                <div class="img-box"><img id="img1" src="" alt="Pic 1"></div>
-                <div class="plus-sign">+</div>
-                <div class="img-box"><img id="img2" src="" alt="Pic 2"></div>
+            <!-- Dynamic Emoji Grid (Supports 2, 3, or 4 emojis) -->
+            <div class="image-container" id="emoji-grid">
+                <!-- JS automatically updates this area with emojis and '+' signs -->
             </div>
 
             <!-- Hint Section -->
@@ -56,6 +54,8 @@
         </footer>
     </div>
 
+    <!-- LEVEL DATA FILE FIRST, THEN MAIN APP ENGINE -->
+    <script src="WGdata.js"></script>
     <script src="WGapp.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
