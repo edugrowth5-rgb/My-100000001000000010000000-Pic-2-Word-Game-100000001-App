@@ -1,7 +1,7 @@
 {
-  "name": "Pic-2-Word: Mind Power Game",
-  "short_name": "Pic2Word",
-  "description": "Boost your mind power by guessing words from images. Specially made by Success Zone.",
+  "name": "WG: Pic-2-Word Mind Power Game",
+  "short_name": "WG-Pic2Word",
+  "description": "Instant Offline Word Puzzle Game by Success Zone.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f0f9ff",
