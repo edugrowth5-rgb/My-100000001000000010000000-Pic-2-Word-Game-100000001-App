@@ -1,7 +1,8 @@
-const CACHE_NAME = 'pic2word-v1';
+const CACHE_NAME = 'wg-pic2word-v2';
 const ASSETS = [
     'index.html',
     'WGstyle.css',
+    'WGdata.js',
     'WGapp.js',
     'WGmanifest.json',
     'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap'
@@ -10,14 +11,14 @@ const ASSETS = [
 self.addEventListener('install', (e) => {
     e.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            console.log('Success Zone Engine - Caching Game Assets...');
+            console.log('Success Zone Core Engine - Caching Offline Assets...');
             return cache.addAll(ASSETS);
         })
     );
 });
 
 self.addEventListener('activate', (e) => {
-    console.log('Game Service Worker Activated Securely.');
+    console.log('Service Worker Configured.');
 });
 
 self.addEventListener('fetch', (e) => {
